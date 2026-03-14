@@ -14,20 +14,28 @@
  * limitations under the License.
  */
 
-#include <torch/extension.h>
-#include <cuda_fp16.h>
 #include "fused.h"
+#include <hip/hip_fp16.h>
+#include <torch/extension.h>
 
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m)
 {
-  m.def("quant_per_block_int8_cuda", py::overload_cast<torch::Tensor, torch::Tensor, torch::Tensor, float, int, int>(&quant_per_block_int8_cuda), "quant_per_block_int8_cuda");
-  m.def("quant_per_block_int8_cuda", py::overload_cast<torch::Tensor, torch::Tensor, torch::Tensor, int, int>(&quant_per_block_int8_cuda), "quant_per_block_int8_cuda");
-  m.def("quant_per_block_int8_fuse_sub_mean_cuda", py::overload_cast<torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, int, int>(&quant_per_block_int8_fuse_sub_mean_cuda), "quant_per_block_int8_fuse_sub_mean_cuda");
-  m.def("quant_per_warp_int8_cuda", py::overload_cast<torch::Tensor, torch::Tensor, torch::Tensor, int, int, int>(&quant_per_warp_int8_cuda), "quant_per_warp_int8_cuda");
+	m.def("quant_per_block_int8_cuda", py::overload_cast<torch::Tensor, torch::Tensor, torch::Tensor, float, int, int>(&quant_per_block_int8_cuda),
+	      "quant_per_block_int8_cuda");
+	m.def("quant_per_block_int8_cuda", py::overload_cast<torch::Tensor, torch::Tensor, torch::Tensor, int, int>(&quant_per_block_int8_cuda),
+	      "quant_per_block_int8_cuda");
+	m.def("quant_per_block_int8_fuse_sub_mean_cuda",
+	      py::overload_cast<torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, int, int>(&quant_per_block_int8_fuse_sub_mean_cuda),
+	      "quant_per_block_int8_fuse_sub_mean_cuda");
+	m.def("quant_per_warp_int8_cuda", py::overload_cast<torch::Tensor, torch::Tensor, torch::Tensor, int, int, int>(&quant_per_warp_int8_cuda),
+	      "quant_per_warp_int8_cuda");
 
-  m.def("sub_mean_cuda", py::overload_cast<torch::Tensor, torch::Tensor, torch::Tensor, int>(&sub_mean_cuda), "sub_mean_cuda");
+	m.def("sub_mean_cuda", py::overload_cast<torch::Tensor, torch::Tensor, torch::Tensor, int>(&sub_mean_cuda), "sub_mean_cuda");
 
-  m.def("transpose_pad_permute_cuda", py::overload_cast<torch::Tensor, torch::Tensor, int>(&transpose_pad_permute_cuda), "transpose_pad_permute_cuda");
-  m.def("scale_fuse_quant_cuda", py::overload_cast<torch::Tensor, torch::Tensor, torch::Tensor, int, float, int>(&scale_fuse_quant_cuda), "scale_fuse_quant_cuda");
-  m.def("mean_scale_fuse_quant_cuda", py::overload_cast<torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, int, float, int>(&mean_scale_fuse_quant_cuda), "mean_scale_fuse_quant_cuda");
+	m.def("transpose_pad_permute_cuda", py::overload_cast<torch::Tensor, torch::Tensor, int>(&transpose_pad_permute_cuda), "transpose_pad_permute_cuda");
+	m.def("scale_fuse_quant_cuda", py::overload_cast<torch::Tensor, torch::Tensor, torch::Tensor, int, float, int>(&scale_fuse_quant_cuda),
+	      "scale_fuse_quant_cuda");
+	m.def("mean_scale_fuse_quant_cuda",
+	      py::overload_cast<torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, int, float, int>(&mean_scale_fuse_quant_cuda),
+	      "mean_scale_fuse_quant_cuda");
 }

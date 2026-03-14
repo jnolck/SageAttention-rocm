@@ -1,0 +1,14 @@
+The SmoothQuant Pipeline TODO List
+
+1. Map the PyBind Signatures (The Requirements)
+We need to know exactly what the C++ layer is expecting. From the fused.h and pybind.cpp files you uploaded earlier, we
+have these available weapons:
+
+    quant_per_block_int8_fuse_sub_mean_cuda(input, mean, output, scale, block_size, tensor_layout)
+    mean_scale_fuse_quant_cuda(input, output, mean, scale, num_tokens, scale_max, tensor_layout)
+
+Target: Identify which of these functions handles the Queries (Q), and which handles the Keys (K). The original code 
+often uses per-warp quantization for Q and per-block for K. We need to verify if we have a sub_mean equivalent for both, 
+or if we need to use mean_scale_fuse_quant_cuda as a pre-processing step.
+
+

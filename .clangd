@@ -1,0 +1,9 @@
+CompileFlags:
+  Add: [
+      "-x",
+      "hip", # clangd treats HIP like CUDA for parsing
+      "--cuda-device-only",
+      "-I/opt/rocm/include",
+      "-D__HIP_PLATFORM_AMD__", # Crucial for RDNA 3 / 7900XT
+      "--offload-arch=gfx1100",
+    ]
