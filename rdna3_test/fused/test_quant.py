@@ -1,5 +1,5 @@
 import torch
-import sage_fused_quant
+from sageattention import sage_fused_quant
 
 
 def test_hardware_quantization():

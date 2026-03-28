@@ -19,8 +19,8 @@ from torch.utils.cpp_extension import BuildExtension, CUDAExtension
 import torch.utils.hipify.hipify_python
 
 # --- THE HOMER SIMPSON MANEUVER (Global) ---
-# We couldn't find a proper way to shut this thing from trying to hipify
-# all the files.
+# We couldn't find a proper way to shut this thing from trying run hipify
+# on all the files.
 torch.utils.hipify.hipify_python.hipify = lambda *args, **kwargs: {}
 # -------------------------------------------
 

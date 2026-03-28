@@ -1,5 +1,5 @@
 import torch
-import attn_sm80
+from sageattention import attn_sm80
 
 print("=== SageAttention RDNA 3 Validation ===")
 

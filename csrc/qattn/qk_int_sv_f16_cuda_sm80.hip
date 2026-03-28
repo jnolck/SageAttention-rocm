@@ -742,6 +742,10 @@ torch::Tensor qk_int8_sv_f16_accum_f32_attn(torch::Tensor query,
 		lse = torch::empty({ batch_size, num_qo_heads, qo_len }, query.options().dtype(torch::kFloat32));
 	}
 
+	if (query.numel() == 0 || key.numel() == 0 || value.numel() == 0) {
+		return lse;
+	}
+
 	auto output_dtype = output.scalar_type();
 
 	DISPATCH_HEAD_DIM(head_dim, HEAD_DIM, {
@@ -900,6 +904,10 @@ torch::Tensor qk_int8_sv_f16_accum_f16_attn(torch::Tensor query,
 	torch::Tensor lse = torch::empty({ 0 });
 	if (return_lse) {
 		lse = torch::empty({ batch_size, num_qo_heads, qo_len }, query.options().dtype(torch::kFloat32));
+	}
+
+	if (query.numel() == 0 || key.numel() == 0 || value.numel() == 0) {
+		return lse;
 	}
 
 	const int num_kv_groups = num_qo_heads / num_kv_heads;
@@ -1243,6 +1251,10 @@ torch::Tensor qk_int8_sv_f16_accum_f16_fuse_v_mean_attn(torch::Tensor query,
 	torch::Tensor lse = torch::empty({ 0 });
 	if (return_lse) {
 		lse = torch::empty({ batch_size, num_qo_heads, qo_len }, query.options().dtype(torch::kFloat32));
+	}
+
+	if (query.numel() == 0 || key.numel() == 0 || value.numel() == 0) {
+		return lse;
 	}
 
 	const int num_kv_groups	   = num_qo_heads / num_kv_heads;

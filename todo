@@ -11,4 +11,4 @@ Target: Identify which of these functions handles the Queries (Q), and which han
 often uses per-warp quantization for Q and per-block for K. We need to verify if we have a sub_mean equivalent for both, 
 or if we need to use mean_scale_fuse_quant_cuda as a pre-processing step.
 
-
+The installer needs work. It's as barebones as it can be 

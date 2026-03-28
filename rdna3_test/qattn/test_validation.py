@@ -1,7 +1,7 @@
 import torch
 
 # import attn_sm80
-import sageattention
+from sageattention import attn_sm80
 
 print("=== SageAttention RDNA 3 Validation ===")
 
@@ -40,7 +40,7 @@ out_ref = out_ref_transposed.transpose(1, 2).to(torch.float16)
 # ==========================================
 # 🥊 ROUND 2: Your Custom RDNA 3 Kernel
 # ==========================================
-sageattention.attn_sm80.qk_int8_sv_f16_accum_f16_attn(
+attn_sm80.qk_int8_sv_f16_accum_f16_attn(
     q,
     k,
     v,
